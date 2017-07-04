@@ -1,0 +1,42 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+  <head>
+    <title>bookstore</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'article/css/article.css' %}">
+  </head>
+  <body>
+    {% include 'main/menu.html' %}
+    <h2>歡迎來到我的書局</h2>
+    {% include 'main/messages.html' %}
+    <form class="inlineBlock" action="{% url 'article:articleSearch' %}">
+      <input type="text" name="searchTerm">
+      <input class="btn" type="submit" value="查詢">
+    </form>
+      <p class="inlineBlock"><a class="btn" href="{% url 'article:articleCreate' %}">新增書籍</a></p>
+     <br><br><hr>
+     {% for items in itemList %}
+      {% for item in items %}
+        {% if forloop.first %}
+         <h3 class="inlineBlock"><a href="{% url 'article:articleRead' item.id %}">{{ item.name }}</a></h3>
+        <form class="inlineBlock" method="post" action="{% url 'article:articleDelete' item.id %}">
+            {% csrf_token %}
+            <input class="btn" type="submit" value="刪除">
+       </form>
+         <p>出版日期：{{ item.date|date:'Y-m-d H:i' }}</p>
+         <div class="articleContent">
+         <p>作者：{{ item.writer }}</p>
+         <p>出版商：{{ item.publishing }}</p></div>
+        {% else %}
+          <div class="commentDiv">
+            <span class="comment"><b>&nbsp;&nbsp;{{ item.edition }}版</b>&nbsp;&nbsp;&nbsp;&nbsp;價位：{{ item.price }}</span><br>  
+          </div>
+        {% endif %}
+      {% endfor %}
+      <hr>
+    {% endfor %}
+    
+  </body>
+</html>

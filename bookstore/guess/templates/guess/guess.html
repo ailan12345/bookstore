@@ -1,0 +1,22 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+  <head>
+    <title>小遊戲</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+  </head>
+  <body>
+    {% include 'main/menu.html' %}
+    <h1>來猜數字吧！</h1>
+     <p>提示：範圍0～9</p>
+   <!-- <form class="inlineBlock" action="{% url 'article:articleSearch' %}"> -->
+   <form class="inlineBlock" action="{% url 'guess:game' %}"> 
+      <input type="text" name="searchTerm">
+      <input class="btn" type="submit" value="猜猜看">
+    </form>
+     {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+  </body>
+</html>

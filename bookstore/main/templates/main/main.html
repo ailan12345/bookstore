@@ -1,0 +1,23 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+  <head>
+    <title>bookstore</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+  </head>
+  <body>
+    {% include 'main/menu.html' %}
+     <p>{{ now }}</p>
+    <h2>Store 說 -- </h2>
+    {% if  now.hour <= 12  %}
+        <p id='time'>早安</p>
+    {% elif now.hour <= 18 %}
+        <p id='time'>午安</p>
+    {% else %}
+        <p id='time'>晚安</p>
+    {% endif %}
+    
+   
+  </body>
+</html>
